@@ -1,0 +1,106 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Blake Lufkin
+    2 00000000         ;ECE271
+    3 00000000         ;Edit original program to perform average score from a p
+                       assed struct and number of students
+    4 00000000         ;Edited: 5/7/2020
+    5 00000000         
+    6 00000000                 AREA             fun, CODE, READONLY, ALIGN=3
+    7 00000000         
+    8 00000000         find_avg_score
+                               PROC
+    9 00000000                 EXPORT           find_avg_score
+   10 00000000                 IMPORT           students
+   11 00000000         ;r1 = number of students
+   12 00000000 480A            LDR              r0, =students
+   13 00000002 B410            PUSH             {r4}
+   14 00000004 460C            MOV              r4, r1
+   15 00000006 F850 2F04       LDR              r2, [r0,#4]! ;score in student[
+                                                            0]
+   16 0000000A F04F 0300       MOV              r3, #0
+   17 0000000E 4413            ADD              r3, r3, r2
+   18 00000010         
+   19 00000010 2900    loop    CMP              r1, #0
+   20 00000012 D005            BEQ              finish
+   21 00000014 F1A1 0101       SUB              r1, r1, #1
+   22 00000018 F850 2F0C       LDR              r2, [r0,#12]!
+   23 0000001C 4413            ADD              r3, r3, r2
+   24 0000001E E7F7            B                loop
+   25 00000020         
+   26 00000020 FBB3 F3F4 
+                       finish  UDIV             r3, r3, r4
+   27 00000024 4618            MOV              r0, r3
+   28 00000026 BC10            POP              {r4}
+   29 00000028         
+   30 00000028 4770            BX               lr
+   31 0000002A                 ENDP
+   32 0000002A                 END
+              00 00 00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=.\objects\average.d -o.\objects\average.o -I.\RTE\_Target_1 
+-IC:\Users\diese\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC
+:\Users\diese\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.3.0\Drivers\CMSIS\De
+vice\ST\STM32L4xx\Include -IC:\Users\diese\AppData\Local\Arm\Packs\Keil\STM32L4
+xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_
+VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32L476xx SETA 1" -
+-list=.\listings\average.lst average.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+find_avg_score 00000000
+
+Symbol: find_avg_score
+   Definitions
+      At line 8 in file average.s
+   Uses
+      At line 9 in file average.s
+Comment: find_avg_score used once
+finish 00000020
+
+Symbol: finish
+   Definitions
+      At line 26 in file average.s
+   Uses
+      At line 20 in file average.s
+Comment: finish used once
+fun 00000000
+
+Symbol: fun
+   Definitions
+      At line 6 in file average.s
+   Uses
+      None
+Comment: fun unused
+loop 00000010
+
+Symbol: loop
+   Definitions
+      At line 19 in file average.s
+   Uses
+      At line 24 in file average.s
+Comment: loop used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+students 00000000
+
+Symbol: students
+   Definitions
+      At line 10 in file average.s
+   Uses
+      At line 12 in file average.s
+Comment: students used once
+1 symbol
+342 symbols in table

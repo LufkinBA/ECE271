@@ -1,0 +1,79 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Blake Lufkin
+    2 00000000         ;ECE271
+    3 00000000         ;Edit original program to count leading zeros of a 64bit
+                        number
+    4 00000000         ;Edited: 5/7/2020
+    5 00000000         
+    6 00000000                 AREA             fun, CODE, READONLY, ALIGN=3
+    7 00000000         
+    8 00000000         count_leading_zeros
+                               PROC
+    9 00000000                 EXPORT           count_leading_zeros
+   10 00000000 FAB1 F281       CLZ              r2, r1
+   11 00000004 2A20            CMP              r2, #32
+   12 00000006 D000            BEQ              upper
+   13 00000008 E002            B                easyend
+   14 0000000A         
+   15 0000000A FAB0 F380 
+                       upper   CLZ              r3, r0
+   16 0000000E 441A            ADD              r2, r2, r3
+   17 00000010         
+   18 00000010 4610    easyend MOV              r0, r2
+   19 00000012 4770            BX               lr
+   20 00000014                 ENDP
+   21 00000014                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=.\objects\count_leading_zeros.d -o.\objects\count_leading_ze
+ros.o -I.\RTE\_Target_1 -IC:\Users\diese\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.
+0\CMSIS\Core\Include -IC:\Users\diese\AppData\Local\Arm\Packs\Keil\STM32L4xx_DF
+P\2.3.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include -IC:\Users\diese\AppData\Loca
+l\Arm\Packs\Keil\STM32L4xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1"
+ --predefine="__UVISION_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefin
+e="STM32L476xx SETA 1" --list=.\listings\count_leading_zeros.lst count_leading_
+zeros.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+count_leading_zeros 00000000
+
+Symbol: count_leading_zeros
+   Definitions
+      At line 8 in file count_leading_zeros.s
+   Uses
+      At line 9 in file count_leading_zeros.s
+Comment: count_leading_zeros used once
+easyend 00000010
+
+Symbol: easyend
+   Definitions
+      At line 18 in file count_leading_zeros.s
+   Uses
+      At line 13 in file count_leading_zeros.s
+Comment: easyend used once
+fun 00000000
+
+Symbol: fun
+   Definitions
+      At line 6 in file count_leading_zeros.s
+   Uses
+      None
+Comment: fun unused
+upper 0000000A
+
+Symbol: upper
+   Definitions
+      At line 15 in file count_leading_zeros.s
+   Uses
+      At line 12 in file count_leading_zeros.s
+Comment: upper used once
+4 symbols
+339 symbols in table

@@ -1,0 +1,110 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;Blake Lufkin
+    2 00000000         ;ECE271
+    3 00000000         ;Edit original program to determine the greatest number 
+                       out of 3 passed floating point numbers
+    4 00000000         ;Edited: 5/7/2020
+    5 00000000         
+    6 00000000                 AREA             fun, CODE, READONLY, ALIGN=3
+    7 00000000         
+    8 00000000         
+    9 00000000         max     PROC
+   10 00000000                 EXPORT           max
+   11 00000000 EEB4 0AE0       VCMPE.F32        s0, s1      ;r0=x r1=y r2=z
+   12 00000004 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   13 00000008 DC00            BGT              zchx
+   14 0000000A E007            B                zchy
+   15 0000000C         
+   16 0000000C EEB4 0AC1 
+                       zchx    VCMPE.F32        s0, s2
+   17 00000010 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   18 00000014 DC0D            BGT              endf        ;r0=x greatest
+   19 00000016 EEB0 0A41       VMOV.F32         s0, s2
+   20 0000001A E00A            B                endf        ;r3=z greatest
+   21 0000001C         
+   22 0000001C EEF4 0AC1 
+                       zchy    VCMPE.F32        s1, s2
+   23 00000020 EEF1 FA10       VMRS             APSR_nzcv, FPSCR
+   24 00000024 DC02            BGT              sety        ;y= greatest
+   25 00000026 EEB0 0A41       VMOV.F32         s0, s2      ;z= greatest
+   26 0000002A E002            B                endf
+   27 0000002C         
+   28 0000002C EEB0 0A60 
+                       sety    VMOV.F32         s0, s1      ;return y=max
+   29 00000030 E7FF            B                endf
+   30 00000032         
+   31 00000032 4770    endf    BX               lr
+   32 00000034                 ENDP
+   33 00000034                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=.\objects\max.d -o.\objects\max.o -I.\RTE\_Target_1 -IC:\Use
+rs\diese\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\
+diese\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.3.0\Drivers\CMSIS\Device\ST\
+STM32L4xx\Include -IC:\Users\diese\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2
+.3.0\Device\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION 
+SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32L476xx SETA 1" --list=.\
+listings\max.lst max.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+endf 00000032
+
+Symbol: endf
+   Definitions
+      At line 31 in file max.s
+   Uses
+      At line 18 in file max.s
+      At line 20 in file max.s
+      At line 26 in file max.s
+      At line 29 in file max.s
+
+fun 00000000
+
+Symbol: fun
+   Definitions
+      At line 6 in file max.s
+   Uses
+      None
+Comment: fun unused
+max 00000000
+
+Symbol: max
+   Definitions
+      At line 9 in file max.s
+   Uses
+      At line 10 in file max.s
+Comment: max used once
+sety 0000002C
+
+Symbol: sety
+   Definitions
+      At line 28 in file max.s
+   Uses
+      At line 24 in file max.s
+Comment: sety used once
+zchx 0000000C
+
+Symbol: zchx
+   Definitions
+      At line 16 in file max.s
+   Uses
+      At line 13 in file max.s
+Comment: zchx used once
+zchy 0000001C
+
+Symbol: zchy
+   Definitions
+      At line 22 in file max.s
+   Uses
+      At line 14 in file max.s
+Comment: zchy used once
+6 symbols
+341 symbols in table
